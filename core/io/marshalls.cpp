@@ -1115,7 +1115,6 @@ static void _encode_string(const String &p_string, uint8_t *&buf, int &r_len) {
 	}
 }
 
-
 Error encode_variant(const Variant &p_variant, uint8_t *r_buffer, int &r_len, bool p_full_objects, int p_depth) {
 	ERR_FAIL_COND_V_MSG(p_depth > Variant::MAX_RECURSION_DEPTH, ERR_OUT_OF_MEMORY, "Potential infinite recursion detected. Bailing.");
 	uint8_t *buf = r_buffer;
@@ -1816,72 +1815,72 @@ Error encode_variant(const Variant &p_variant, uint8_t *r_buffer, int &r_len, bo
 	return OK;
 }
 
-Error to_raw_bytes(const Variant &p_variant, PackedByteArray& out) {
+Error to_raw_bytes(const Variant &p_variant, PackedByteArray &out) {
 	switch (p_variant.get_type()) {
 		case Variant::INT: {
 			int32_t v = p_variant;
-			size_t offset=out.size();
-			out.resize(out.size()+sizeof(v));
-			memcpy(out.ptrw()+offset,&v,sizeof(v));
+			size_t offset = out.size();
+			out.resize(out.size() + sizeof(v));
+			memcpy(out.ptrw() + offset, &v, sizeof(v));
 		} break;
 		case Variant::BOOL: {
 			bool v = p_variant;
-			size_t offset=out.size();
-			out.resize(out.size()+sizeof(v));
-			memcpy(out.ptrw()+offset,&v,sizeof(v));
+			size_t offset = out.size();
+			out.resize(out.size() + sizeof(v));
+			memcpy(out.ptrw() + offset, &v, sizeof(v));
 		} break;
 		case Variant::FLOAT: {
 #ifdef REAL_T_IS_DOUBLE
 			double v = p_variant;
-			size_t offset=out.size();
-			out.resize(out.size()+sizeof(v));
-			memcpy(out.ptrw()+offset,&v,sizeof(v));
+			size_t offset = out.size();
+			out.resize(out.size() + sizeof(v));
+			memcpy(out.ptrw() + offset, &v, sizeof(v));
 #else
 			float v = p_variant;
-			size_t offset=out.size();
-			out.resize(out.size()+sizeof(v));
-			memcpy(out.ptrw()+offset,&v,sizeof(v));
+			size_t offset = out.size();
+			out.resize(out.size() + sizeof(v));
+			memcpy(out.ptrw() + offset, &v, sizeof(v));
 #endif
 		} break;
 		case Variant::VECTOR2: {
 			Vector2 v = p_variant;
-			for(size_t elements = 0; elements < 2; elements++) {
+			for (size_t elements = 0; elements < 2; elements++) {
 				to_raw_bytes(v[elements], out);
 			}
 		} break;
 		case Variant::VECTOR3: {
 			Vector3 v = p_variant;
-			for(size_t elements = 0; elements < 3; elements++) {
+			for (size_t elements = 0; elements < 3; elements++) {
 				to_raw_bytes(v[elements], out);
 			}
 		} break;
 		case Variant::VECTOR4: {
 			Vector4 v = p_variant;
-			for(size_t elements = 0; elements < 4; elements++) {
+			for (size_t elements = 0; elements < 4; elements++) {
 				to_raw_bytes(v[elements], out);
 			}
 		} break;
 		case Variant::VECTOR2I: {
 			Vector2i v = p_variant;
-			for(size_t elements = 0; elements < 2; elements++) {
+			for (size_t elements = 0; elements < 2; elements++) {
 				to_raw_bytes(v[elements], out);
 			}
 		} break;
 		case Variant::VECTOR3I: {
 			Vector3i v = p_variant;
-			for(size_t elements = 0; elements < 3; elements++) {
+			for (size_t elements = 0; elements < 3; elements++) {
 				to_raw_bytes(v[elements], out);
 			}
 		} break;
 		case Variant::VECTOR4I: {
 			Vector4i v = p_variant;
-			for(size_t elements = 0; elements < 4; elements++) {
+			for (size_t elements = 0; elements < 4; elements++) {
 				to_raw_bytes(v[elements], out);
 			}
 		} break;
 		case Variant::ARRAY: {
 			Array v = p_variant;
-			for(int i = 0; i < v.size(); i++) {
+			for (int i = 0; i < v.size(); i++) {
 				to_raw_bytes(v[i], out);
 			}
 		} break;

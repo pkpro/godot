@@ -966,11 +966,10 @@ PackedByteArray VariantUtilityFunctions::to_raw_bytes(const Variant &p_variant) 
 	PackedByteArray packed;
 	Error err = ::to_raw_bytes(p_variant, packed);
 	if (err != OK) {
-		ERR_FAIL_V_MSG(packed,"to_raw_bytes(), an attempt to convert unsupported type");
+		ERR_FAIL_V_MSG(packed, "to_raw_bytes(), an attempt to convert unsupported type");
 	}
 	return packed;
 }
-
 
 PackedByteArray VariantUtilityFunctions::var_to_bytes_with_objects(const Variant &p_var) {
 	int len;
